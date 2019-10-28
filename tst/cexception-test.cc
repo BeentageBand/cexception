@@ -14,6 +14,17 @@ enum Exception {
   BadAllocException
 };
 
+TEST(try_catch, smoke_block)
+{
+  _try_catch({
+
+  }, _any {
+
+  } _finally {
+
+  });
+
+}
 
 TEST(setjmp, smoke_no_longjmp)
 {
@@ -57,7 +68,6 @@ TEST(Exception, Catch_BadAllocException)
 
 TEST(Exception, try_NoThrow)
 {
- EXPECT_EXIT({
   bool pass_finally = false;
   _try {
 
@@ -70,8 +80,7 @@ TEST(Exception, try_NoThrow)
   _end_try;
 
   ASSERT_TRUE(pass_finally);
-  },
-   ::testing::ExitedWithCode(0), "Success");
+
 }
 
 

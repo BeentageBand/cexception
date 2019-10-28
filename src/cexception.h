@@ -7,6 +7,10 @@
 #error "cexception.h needs ISO C compiler"
 #endif 
 
+#define _try_catch(try_block, catch_block) \
+  _try try_block \
+  _catch catch_block \
+  _end_try
 
 /** _try
  *  try block from try-catch structure
@@ -15,16 +19,16 @@
 #define _try \
 char const * exception_message = NULL; \
 struct CException local_context; \
-local_context.next = CException_Current; \
-CException_Current = &local_context; \
+CException_push(&local_context); \
 int const exception = setjmp(CException_Current->context); \
-if(0 == exception)
+if(0 == exception) { \
 
 /** _catch
  * Starts catch block
  */
 #define _catch \
-else { \
+  (void)CException_pop(); \
+} else { \
     switch (exception) { \
       default:
 
@@ -32,7 +36,7 @@ else { \
  * goes first after _catch
  * catches any exception not defined with _exception
  */
-#define _any CException_Current = CException_Current->next;
+#define _any (void)CException_pop();
 
 /** _exception
  * catches specific exception
@@ -53,7 +57,6 @@ else { \
 #define _end_try \
 } /* ends if */ \
   if (&local_context == CException_Current) { \
-      _any \
       CException_throw(exception, exception_message); \
   } \
 
@@ -84,6 +87,8 @@ extern struct CException * CException_Current;
 
 extern void CException_throw(int const except, char const * const message);
 
+extern void CException_push(struct CException * const context);
+extern struct CException * CException_pop(void);
 
 #ifdef __cplusplus
 }

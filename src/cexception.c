@@ -13,3 +13,16 @@ void CException_throw(int exception, char const * const message)
    CException_Current->msg = message;
    longjmp(CException_Current->context, exception);
 }
+
+void CException_push(struct CException * const context)
+{
+  context->next = CException_Current;
+  CException_Current = context;
+}
+
+struct CException * CException_pop(void)
+{
+  struct CException * const popable = CException_Current;
+  CException_Current = CException_Current->next;
+  return popable;
+}
