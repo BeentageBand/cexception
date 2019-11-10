@@ -49,13 +49,13 @@ if(0 == exception) { \
  * logic is executed even an exception was thrown
  */
 #define _finally \
-    break; } /* ends switch */
+    break; } /* ends switch */ \
+  } /* ends if */ \
 
 /** _end_try
  * goes at the very end of the try-catch block
  */
 #define _end_try \
-} /* ends if */ \
   if (&local_context == CException_Current) { \
       CException_throw(exception, exception_message); \
   } \

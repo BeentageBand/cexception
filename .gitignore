@@ -56,3 +56,6 @@ out/
 .settings
 .cproject
 .project
+
+# Files
+tst/unit-test

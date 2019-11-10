@@ -86,6 +86,18 @@ TEST(Exception, try_NoThrow)
 
 TEST(Exception, Catch_Any)
 {
+  bool pass_any = false;
 
+  _try {
+    _throw(BadAllocException, "BadAllocException");
+  } _catch
+    _any {
+    pass_any = true;
+  } _finally {
 
+  }
+
+  _end_try
+
+  ASSERT_TRUE(pass_any);
 }
