@@ -11,9 +11,6 @@ ifndef test
 test=dummy-test
 endif
 
-INSTALL_LIB=libcobject.lib
-INSTALL_INC=cobject.h xmac.h
-
 TEST_LDFLAGS=$(shell pkg-Config --libs --static $(TEST_DEPS))
 
 .PHONY: all clean install test $(SUBDIRS:%=%-all) $(SUBDIRS:%=%-clean) tst-all tst-clean
@@ -21,6 +18,9 @@ TEST_LDFLAGS=$(shell pkg-Config --libs --static $(TEST_DEPS))
 all : install test
 
 install : $(OUT)/bin $(OUT)/lib $(SUBDIRS:%=%-all)
+	-mkdir -p ../build/{lib,include};
+	-cp -f $(OUT)/lib/*.a ../build/lib/;
+	-cp -rf $(OUT)/include/* ../build/include/;
 
 clean : $(SUBDIRS:%=%-clean) tst-clean
 

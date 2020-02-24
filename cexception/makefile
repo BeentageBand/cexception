@@ -1,13 +1,13 @@
 SRCS=$(wildcard *.c)
-LIBS=libcobject.a
+LIBS=libexception.a
 INCS=$(wildcard *.h)
 
 .PHONY : all clean $(MAKECMDGOALS:%=%.cmd)
 
 all : install
 
-install: ../$(OUT)/include/cobject/ $(LIBS:%=../$(OUT)/lib/%) $(INCS:%=../$(OUT)/include/cobject/%)
-	@echo "install cobject.."
+install: ../$(OUT)/include/cexception/ $(LIBS:%=../$(OUT)/lib/%) $(INCS:%=../$(OUT)/include/cexception/%)
+	@echo "install cexception.."
 
 clean : 
 	@echo "clean all-tst"
@@ -20,10 +20,10 @@ $(LIBS) : $(SRCS:.c=.o)
 $(LIBS:%=../$(OUT)/lib/%): $(LIBS)
 	cp -sf $(realpath $^) $@;
 
-../$(OUT)/include/cobject/%.h : %.h
+../$(OUT)/include/cexception/%.h : %.h
 	cp -sf $(realpath $^) $@;
 
-../$(OUT)/include/cobject : 
+../$(OUT)/include/cexception : 
 	-mkdir -p $@;
 
 %.o : %.c
