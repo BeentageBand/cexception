@@ -4,18 +4,18 @@ TEST=unit-test
 
 .PHONY : all clean 
 
-all : ../$(OUT)/bin/$(TEST)
+all : $(OUT)/bin/$(TEST)
 	@echo "compiling all-tst";
 
 clean : 
 	@echo "clean all-tst";
-	rm -rf $(CSRCS:.c=.o) $(CCSRCS:.cc=.o)
+	rm -rf $(CSRCS:.c=.o) $(CCSRCS:.cc=.o) $(TEST)
 
-../$(OUT)/bin/$(TEST) : $(TEST)
+$(OUT)/bin/$(TEST) : $(TEST)
 	-cp -sf $(realpath $^) $@;
 
 $(TEST) : $(CSRCS:.c=.o) $(CCSRCS:.cc=.o)
-	$(CPP) $(CXXFLAGS) $(SUBDIRS:%=-I ../%) $(LDFLAGS) -L ../$(OUT)/lib -lcobject -o $@ $^;
+	$(CPP) $(CXXFLAGS) $(SUBDIRS:%=-I ../%) $(LDFLAGS) -o $@ $^;
 
 %.o : %.cc
 	$(CPP) $(CXXFLAGS) $(SUBDIRS:%= -I ../%) -o $@ -c $^;

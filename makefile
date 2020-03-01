@@ -2,10 +2,14 @@ export CXX=gcc
 export CPP=g++
 export TEST_DEPS=gmock_main gtest gmock
 export DEPS=
-export LDFLAGS=$(shell pkg-config --libs --static $(DEPS) $(TEST_DEPS))
-export CXXFLAGS=-std=gnu++11 $(shell pkg-config --cflags $(DEPS) $(TEST_DEPS)) 
-export CFLAGS=-std=gnu11 $(shell pkg-config --cflags $(DEPS) $(TEST_DEPS)) 
-export OUT=out
+ifdef BEENTAGE_DIR_ROOT
+export OUT=$(BEENTAGE_DIR_ROOT)/out
+else
+export OUT=$(realpath .)/out
+endif
+export LDFLAGS=$(shell pkg-config --libs --static $(DEPS) $(TEST_DEPS)) -L $(OUT)/lib -lcexception
+export CXXFLAGS=-std=gnu++11 $(shell pkg-config --cflags $(DEPS) $(TEST_DEPS)) -I $(OUT)/include/
+export CFLAGS=-std=gnu11 $(shell pkg-config --cflags $(DEPS) $(TEST_DEPS))  -I $(OUT)/include/
 export SUBDIRS=cexception
 ifndef test
 test=dummy-test
@@ -28,9 +32,9 @@ clobber : clean
 	-rm -rf $(OUT)
 
 test : tst-all
-	@$(OUT)/bin/unit-test;
+	@tst/unit-test;
 
-$(OUT) $(OUT)/bin $(OUT)/lib $(OUT)/include/cobject : 
+$(OUT) $(OUT)/bin $(OUT)/lib $(OUT)/include/cexception: 
 	-mkdir -p $@;
 
 $(SUBDIRS:%=%-all) tst-all : 
