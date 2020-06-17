@@ -18,12 +18,12 @@ $(LIBS) : $(SRCS:.c=.o)
 	$(AR) -rcs $@ $^;
 
 $(LIBS:%=$(OUT)/lib/%): $(LIBS)
-	cp -sf $(realpath $^) $@;
+	cp -f $(realpath $^) $@;
 
 $(OUT)/include/cexception/%.h : %.h
-	cp -sf $(realpath $^) $@;
+	cp -f $(realpath $^) $@;
 
-$(OUT)/include/cexception : 
+$(OUT)/include/cexception/ : 
 	-mkdir -p $@;
 
 %.o : %.c

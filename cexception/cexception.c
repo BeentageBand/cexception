@@ -5,7 +5,7 @@
 
 struct CException * CException_Current = NULL;
 
-void CException_throw(int exception, char const * const message)
+void CException_throw(int const exception, char const * const message)
 {
    /* no exception context saved, exit program */
    if(! CException_Current ) exit(exception);

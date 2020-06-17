@@ -88,6 +88,7 @@ extern struct CException * CException_Current;
 extern void CException_throw(int const except, char const * const message);
 
 extern void CException_push(struct CException * const context);
+
 extern struct CException * CException_pop(void);
 
 #ifdef __cplusplus

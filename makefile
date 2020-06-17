@@ -7,7 +7,7 @@ export OUT=$(BEENTAGE_DIR_ROOT)/out
 else
 export OUT=$(realpath .)/out
 endif
-export LDFLAGS=$(shell pkg-config --libs --static $(DEPS) $(TEST_DEPS)) -L $(OUT)/lib -lcexception
+export LDFLAGS=$(shell pkg-config --libs --static $(DEPS) $(TEST_DEPS))
 export CXXFLAGS=-std=gnu++11 $(shell pkg-config --cflags $(DEPS) $(TEST_DEPS)) -I $(OUT)/include/
 export CFLAGS=-std=gnu11 $(shell pkg-config --cflags $(DEPS) $(TEST_DEPS))  -I $(OUT)/include/
 export SUBDIRS=cexception
@@ -22,7 +22,7 @@ TEST_LDFLAGS=$(shell pkg-Config --libs --static $(TEST_DEPS))
 all : install test
 
 install : $(OUT)/bin $(OUT)/lib $(SUBDIRS:%=%-all)
-	-mkdir -p ../build/{lib,include};
+	-mkdir -p ../build/include ../build/lib;
 	-cp -f $(OUT)/lib/*.a ../build/lib/;
 	-cp -rf $(OUT)/include/* ../build/include/;
 
