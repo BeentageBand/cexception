@@ -58,5 +58,18 @@ out/
 .cproject
 .project
 
+# Autotools
+.deps
+.dirstamp
+*.m4
+autom4te.cache
+build-aux
+config.log
+config.status
+configure
+libtool
+Makefile.in
+Makefile
+
 # Files
-tst/unit-test
+unittest
