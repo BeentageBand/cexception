@@ -61,6 +61,7 @@ out/
 # Autotools
 .deps
 .dirstamp
+.libs
 *.m4
 autom4te.cache
 build-aux

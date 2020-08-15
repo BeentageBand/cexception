@@ -7,7 +7,7 @@
 
 #include "gtest/gtest.h"
 
-#include "cexception.h"
+#include "cexception/cexception.h"
 
 enum Exception {
   NoException = 0,

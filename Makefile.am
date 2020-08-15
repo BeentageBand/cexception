@@ -1,9 +1,9 @@
  ACLOCAL_AMFLAGS = -I m4 --install
 # Libraries
 lib_LTLIBRARIES = libcexception-1.0.la
-libcexception_1_0_la_SOURCES = src/cexception.c src/cexception.h
+libcexception_1_0_la_SOURCES = cexception/cexception.c cexception/cexception.h
 libcexception_1_0_la_LDFLAGS = -version-info 0:0:0
-include_HEADERS = src/cexception.h
+include_HEADERS = cexception/cexception.h
 
  bin_PROGRAMS = unittest
  unittest_SOURCES = tst/cexception-test.cc
